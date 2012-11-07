@@ -81,7 +81,7 @@ tmxloader.ObjectGroup = function(groupname,width,height,properties){
 
 tmxloader.parseProperties = function($xml){
      var properties = new Array();
-	 $xml.find('properties:first').each(function(){	
+	 $xml.find('properties:first ').each(function(){	
 	 	$xml.find('property').each(function(){	
 	 		console.log("Processing Property: " + $(this).attr("name") + " =  "+  $(this).attr("value"));
 	 		properties[''+$(this).attr("name")+''] = $(this).attr("value");
