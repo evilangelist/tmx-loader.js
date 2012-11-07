@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Tmx-loader.js by JamieLewisUK</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Tmx-loader.js</h1>
+        <p>A javascript library to load TMX files (used in the Tiled Map Editor)</p>
+
+        <p class="view"><a href="https://github.com/JamieLewisUK/tmx-loader.js">View the Project on GitHub <small>JamieLewisUK/tmx-loader.js</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/JamieLewisUK/tmx-loader.js/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/JamieLewisUK/tmx-loader.js/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/JamieLewisUK/tmx-loader.js">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>tmx-loader.js</h1>
+
+<p>A javascript library to load TMX files (used in the <a href="http://mapeditor.org">Tiled Map Editor</a>)</p>
+
+<h1>Features</h1>
+
+<ul>
+<li>Loading of TMX Files
+
+<ul>
+<li>Tile Layers, Object Layers</li>
+<li>Objects</li>
+<li>Data (CSV Format Only so far)</li>
+</ul>
+</li>
+</ul><h1>How to use</h1>
+
+<p>Simply call </p>
+
+<div class="highlight"><pre>  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="s1">'tmxfile'</span><span class="p">);</span> 
+</pre></div>
+
+<p>To load your TMX File. The following is a quick review of the common functions:</p>
+
+<div class="highlight"><pre>  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="s1">'tmxfile'</span><span class="p">);</span> 
+
+  <span class="c1">//Common Map Properties</span>
+  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span> 
+  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span> 
+  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">tileWidth</span><span class="p">;</span> 
+  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">tileHeight</span><span class="p">;</span> 
+
+  <span class="c1">//Accessing Layer Data</span>
+  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">name</span>
+  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">data</span><span class="p">[</span><span class="nx">y</span><span class="p">][</span><span class="nx">x</span><span class="p">]</span> <span class="c1">//Get the value of the 1st tile map layer at co-ordinates (x,y);</span>
+
+  <span class="c1">//Accessing Object Groups</span>
+  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">objectgroup</span><span class="p">[</span><span class="s1">'Enemies'</span><span class="p">].</span><span class="nx">objects</span><span class="p">.</span><span class="nx">length</span> <span class="c1">// Get the number of objects in the Object Group 'Enemies'</span>
+  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">objectgroup</span><span class="p">[</span><span class="s1">'Enemies'</span><span class="p">].</span><span class="nx">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">name</span> <span class="c1">//Get the name of an object</span>
+
+  <span class="c1">//Common Object Properties</span>
+  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">objectgroup</span><span class="p">[</span><span class="s1">'Enemies'</span><span class="p">].</span><span class="nx">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">x</span> 
+  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">objectgroup</span><span class="p">[</span><span class="s1">'Enemies'</span><span class="p">].</span><span class="nx">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">y</span>
+  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">objectgroup</span><span class="p">[</span><span class="s1">'Enemies'</span><span class="p">].</span><span class="nx">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">width</span>
+  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">objectgroup</span><span class="p">[</span><span class="s1">'Enemies'</span><span class="p">].</span><span class="nx">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">height</span>
+
+  <span class="c1">//Custom Object Properties (User Specified)</span>
+  <span class="nx">tmxloader</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">objectgroup</span><span class="p">[</span><span class="s1">'Enemies'</span><span class="p">].</span><span class="nx">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">propeties</span><span class="p">[</span><span class="s1">'state'</span><span class="p">]</span>
+
+</pre></div>
+
+<h1>Running the Tests</h1>
+
+<p>By downloading and hosting the files and accessing testRunner.html you can run some tests which exercise the various properties discussed above</p>
+
+<p><strong>Note:</strong> When running locally, Chrome errors with the warning: </p>
+
+<div class="highlight"><pre><span class="nx">XMLHttpRequest</span> <span class="nx">cannot</span> <span class="nx">load</span> <span class="nx">file</span><span class="o">:&lt;</span><span class="nx">tmxfile</span><span class="o">&gt;</span> <span class="nx">Origin</span> <span class="kc">null</span> <span class="nx">is</span> <span class="nx">not</span> <span class="nx">allowed</span> <span class="nx">by</span> <span class="nx">Access</span><span class="o">-</span><span class="nx">Control</span><span class="o">-</span><span class="nx">Allow</span><span class="o">-</span><span class="nx">Origin</span><span class="p">.</span>
+</pre></div>
+
+<p>To fix this either run Chrome with the <code>--allow-file-access-from-files</code> option. Or server the files from a server.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/JamieLewisUK">JamieLewisUK</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
