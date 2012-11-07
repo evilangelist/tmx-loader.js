@@ -1,4 +1,4 @@
-tmx-loader.js
+[tmx-loader.js](http://jamielewisuk.github.com/tmx-loader.js)
 =============
 
 A javascript library to load TMX files (used in the [Tiled Map Editor](http://mapeditor.org))
@@ -53,6 +53,8 @@ Running the Tests
 =================
 
 By downloading and hosting the files and accessing testRunner.html you can run some tests which exercise the various properties discussed above
+
+[View the Latest Test Run](http://jamielewisuk.github.com/tmx-loader.js/testRunner.html)
 
 **Note:** When running locally, Chrome errors with the warning: 
 ``` javascript 
