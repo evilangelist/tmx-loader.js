@@ -46,6 +46,24 @@ tmxloader.Layer = function(layerName,width,height){
 	}	
 }
 
+tmxloader.Object = function(objectname, type, x, y, width, height){
+	this.name = objectname;
+	this.width = width;
+	this.height = height;
+	this.x = x;
+	this.y = y;
+	this.type  = type	
+}
+
+
+tmxloader.ObjectGroup = function(groupname,width,height){
+	this.name = groupname;
+	this.width = width;
+	this.height = height;
+	this.objects  = new Array();
+}
+
+
 
 tmxloader.load = function(url){
 
@@ -97,4 +115,28 @@ tmxloader.load = function(url){
 			++layerCount;
 		
 		 });
+		 
+		 $xml.find('objectgroup').each(function(){			
+
+			$lwidth = $(this).attr("width");
+		 	$lheight = $(this).attr("height");
+		 	$numobjects =  $(this).find('object').length;
+		 	tmxloader.map.objectgroup = new Object();
+		 	console.log("Processing Object Group: " + $(this).attr("name") + " with " + $numobjects + " Objects");
+		 	tmxloader.map.objectgroup[''+$(this).attr("name")+''] = new tmxloader.ObjectGroup($(this).attr("name"),$lwidth,$lheight);
+		
+			$objectGroupName = $(this).attr("name");
+				 $xml.find('object').each(function(){
+				 	$objectname =  $(this).attr("name");
+				 	$objecttype =  $(this).attr("type");
+				 	$objectx = $(this).attr("x");
+				 	$objecty = $(this).attr("y");
+				 	$objectwidth = $(this).attr("width");
+				 	$objectheight = $(this).attr("height");
+				 	console.log("Processing Object: " + $objectname);
+				 	tmxloader.map.objectgroup[''+$objectGroupName+''].objects.push(new tmxloader.Object($objectname, $objecttype , $objectx, $objecty, $objectwidth,  $objectheight) );
+				 });
+
+		 } );
+		 
 }	
