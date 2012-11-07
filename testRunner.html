@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <title>tmx-loader.js - Test Runner</title>
+                <meta charset="utf-8" />     
+                <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+                <script type="text/javascript" src="tmx-loader.js"></script>
+                <script type="text/javascript" src="tests.js"></script>
+                
+                <style>
+                	body{
+                		text-align:center;
+                		font-family:sans;
+					}
+					
+					table{
+						width:50%;
+						margin:auto;
+					}
+					
+					table,tr,th,td {
+						border: 1px solid #222;
+						text-align:center;
+					}
+					
+					.Pass{
+						background:#ccffcc;
+					}
+					
+					.Fail{
+						background:#ffcccc;
+					}		
+                
+                </style>
+                
+        </head>
+
+        <body onload="runTests()">
+        	<h1>tmx-loader.js Test Results Page</h1>
+        	<table id="table">
+        		<thead>
+        			<tr><th>Test Name</th><th>Expected Result</th><th>Actual Result</th><th>Summary</th></tr>
+        		</thead>
+			</table>
+        </body>
+</html>

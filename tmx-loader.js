@@ -16,19 +16,33 @@ tmxloader.trim  = function(str) {
     return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 }
 
-tmxloader.Map = function(width,height,tileWidth,tileHeight,layers){
+tmxloader.Map = function(width,height,tileWidth,tileHeight,layers,properties){
 	this.width = width;
 	this.height = height;
 	this.tileWidth = tileWidth;
 	this.tileHeight = tileHeight;
+	this.tilesets = new Array();
 	this.layers = new Array(layers);
+	this.properties = properties;
 }
 
-tmxloader.Layer = function(layerName,width,height){
+tmxloader.Tileset = function(firstgid, name, tileWidth,tileHeight,src,width,height,properties){
+	this.firstGid = firstgid;
+	this.name = name;
+	this.tileWidth = tileWidth;
+	this.tileHeight = tileHeight;
+	this.src = src;
+	this.width = width;
+	this.height = height;
+	this.properties = properties;
+}
+
+tmxloader.Layer = function(layerName,width,height,properties){
 	this.name = layerName;
 	this.width = width;
 	this.height = height;
 	this.data  = new Array(height);
+	this.properties = properties;
 	
 	for(var d = 0;d < height;++d){
 		this.data[d] = new Array(width);
@@ -46,24 +60,35 @@ tmxloader.Layer = function(layerName,width,height){
 	}	
 }
 
-tmxloader.Object = function(objectname, type, x, y, width, height){
+tmxloader.Object = function(objectname, type, x, y, width, height,properties){
 	this.name = objectname;
 	this.width = width;
 	this.height = height;
 	this.x = x;
 	this.y = y;
-	this.type  = type	
+	this.type  = type;
+	this.properties = properties;
 }
 
 
-tmxloader.ObjectGroup = function(groupname,width,height){
+tmxloader.ObjectGroup = function(groupname,width,height,properties){
 	this.name = groupname;
 	this.width = width;
 	this.height = height;
 	this.objects  = new Array();
+	this.properties = properties;
 }
 
-
+tmxloader.parseProperties = function($xml){
+     var properties = new Array();
+	 $xml.find('properties:first').each(function(){	
+	 	$xml.find('property').each(function(){	
+	 		console.log("Processing Property: " + $(this).attr("name") + " =  "+  $(this).attr("value"));
+	 		properties[''+$(this).attr("name")+''] = $(this).attr("value");
+	 	});
+	 });
+	 return properties;
+}
 
 tmxloader.load = function(url){
 
@@ -87,8 +112,8 @@ tmxloader.load = function(url){
 		 
 		 $tilewidth = $xml.find("map").attr("tilewidth");
 		 $tileheight = $xml.find("map").attr("tileheight");
-		 
-		 tmxloader.map = new tmxloader.Map($width,$height,$tilewidth,$tileheight, $xml.find('layer').length);
+		 var properties = tmxloader.parseProperties($xml);
+		 tmxloader.map = new tmxloader.Map($width,$height,$tilewidth,$tileheight, $xml.find('layer').length,properties);
 		 
 		 console.log('Creating Map...' +  tmxloader.map.width + " x " + tmxloader.map.height + " Tiles: " +  tmxloader.map.tileWidth + " x " +  tmxloader.map.tileHeight);
 		 
@@ -100,8 +125,8 @@ tmxloader.load = function(url){
 			
 			$lwidth = $(this).attr("width");
 		 	$lheight = $(this).attr("height");
-		 	
-		 	tmxloader.map.layers[layerCount] = new tmxloader.Layer($(this).attr("name"),$lwidth,$lheight);
+		 	var properties = tmxloader.parseProperties($(this));
+		 	tmxloader.map.layers[layerCount] = new tmxloader.Layer($(this).attr("name"),$lwidth,$lheight,properties);
 		
 			if($data.attr("encoding") =="csv"){
 				console.log("Processing CSV");
@@ -112,18 +137,37 @@ tmxloader.load = function(url){
 				console.log("Unsupported Encoding Scheme");
 			}
 			
+			
+			
 			++layerCount;
 		
 		 });
 		 
-		 $xml.find('objectgroup').each(function(){			
+		$xml.find('tileset').each(function(){	
+			 $firstgid = $(this).attr("firstgid");
+			 $name = $(this).attr("name");
+			 $tilewidth = $(this).attr("tilewidth");
+			 $tileheight = $(this).attr("tileheight");
+			 
+				$image =  $(this).find('image');
+				$src = $image.attr("source");
+				$width = $image .attr("width");
+			 	$height = $image .attr("height"); 
+			 	var properties = tmxloader.parseProperties($(this));
+			 tmxloader.map.tilesets.push(new tmxloader.Tileset($firstgid,$name,$tilewidth,$tileheight,$src,$width,$height,properties));
+		 });
+		 
+		 $xml.find('objectgroup').each(function(){	
+		 
+		 		
 
 			$lwidth = $(this).attr("width");
 		 	$lheight = $(this).attr("height");
 		 	$numobjects =  $(this).find('object').length;
 		 	tmxloader.map.objectgroup = new Object();
 		 	console.log("Processing Object Group: " + $(this).attr("name") + " with " + $numobjects + " Objects");
-		 	tmxloader.map.objectgroup[''+$(this).attr("name")+''] = new tmxloader.ObjectGroup($(this).attr("name"),$lwidth,$lheight);
+		 	var properties = tmxloader.parseProperties($(this));
+		 	tmxloader.map.objectgroup[''+$(this).attr("name")+''] = new tmxloader.ObjectGroup($(this).attr("name"),$lwidth,$lheight,properties);
 		
 			$objectGroupName = $(this).attr("name");
 				 $xml.find('object').each(function(){
@@ -134,7 +178,8 @@ tmxloader.load = function(url){
 				 	$objectwidth = $(this).attr("width");
 				 	$objectheight = $(this).attr("height");
 				 	console.log("Processing Object: " + $objectname);
-				 	tmxloader.map.objectgroup[''+$objectGroupName+''].objects.push(new tmxloader.Object($objectname, $objecttype , $objectx, $objecty, $objectwidth,  $objectheight) );
+				 	var properties = tmxloader.parseProperties($(this));
+				 	tmxloader.map.objectgroup[''+$objectGroupName+''].objects.push(new tmxloader.Object($objectname, $objecttype , $objectx, $objecty, $objectwidth,  $objectheight,properties) );
 				 });
 
 		 } );
