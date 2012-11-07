@@ -70,4 +70,4 @@ By downloading and hosting the files and accessing testRunner.html you can run s
 ``` javascript 
 XMLHttpRequest cannot load file:<tmxfile> Origin null is not allowed by Access-Control-Allow-Origin.
 ```
-To fix this either run Chrome with the ```--allow-file-access-from-files``` option. Or server the files from a server.
+To fix this either run Chrome with the ```--allow-file-access-from-files``` option. Or serve the files from a server.
