@@ -1,4 +1,4 @@
-[tmx-loader.js](http://jamielewisuk.github.com/tmx-loader.js)
+[tmx-loader.js](http://jamielewis.me.uk/tmxloader.html)
 =============
 
 A javascript library to load TMX files (used in the [Tiled Map Editor](http://mapeditor.org))
