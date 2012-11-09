@@ -1,4 +1,4 @@
-tmx-loader.js
+[tmx-loader.js](http://jamielewisuk.github.com/tmx-loader.js)
 =============
 
 A javascript library to load TMX files (used in the [Tiled Map Editor](http://mapeditor.org))
@@ -13,13 +13,23 @@ Features
 
 How to use
 ==========
+
+Make sure you have include jquery, and tmx-loader.js
+
+```html
+   <script type="text/javascript" src="assets/jquery-1.8.2.min.js"></script>
+   <script type="text/javascript" src="tmx-loader.js"></script>
+```
   
 Simply call 
+
 
 ``` javascript 
   tmxloader.load('tmxfile'); 
 ```
 To load your TMX File. The following is a quick review of the common functions:
+
+
 
 ``` javascript 
   tmxloader.load('tmxfile'); 
@@ -54,8 +64,10 @@ Running the Tests
 
 By downloading and hosting the files and accessing testRunner.html you can run some tests which exercise the various properties discussed above
 
+[View the Latest Test Run](http://jamielewisuk.github.com/tmx-loader.js/testRunner.html)
+
 **Note:** When running locally, Chrome errors with the warning: 
 ``` javascript 
 XMLHttpRequest cannot load file:<tmxfile> Origin null is not allowed by Access-Control-Allow-Origin.
 ```
-To fix this either run Chrome with the ```--allow-file-access-from-files``` option. Or server the files from a server.
+To fix this either run Chrome with the ```--allow-file-access-from-files``` option. Or serve the files from a server.

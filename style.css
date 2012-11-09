@@ -1,0 +1,18 @@
+html, body {
+  width:  100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+}
+
+#canvas{
+  border:1px solid #000;
+  background:url("skyback.png");
+  background-size: 100% 100%;
+  background-repeat:no-repeat;
+  margin: 0px;
+  padding:0px;
+}
+
+
